@@ -130,6 +130,15 @@ def runGame():
         else:
             blub1 = False
 
+        # Snake collision checks
+        for wormBody1 in wormCoords1[1:]:
+            if wormBody1['x'] == wormCoords2[HEAD2]['x'] and wormBody1['y'] == wormCoords2[HEAD2]['y']:
+                return  # game over
+
+        for wormBody2 in wormCoords2[1:]:
+            if wormBody2['x'] == wormCoords1[HEAD2]['x'] and wormBody2['y'] == wormCoords1[HEAD2]['y']:
+                return  # game over
+
         if wormCoords2[HEAD2]['x'] == -1 or wormCoords2[HEAD2]['x'] == CELLWIDTH or wormCoords2[HEAD2]['y'] == -1 or \
                 wormCoords2[HEAD2]['y'] == CELLHEIGHT:
             if direction2 == UP:
@@ -153,6 +162,15 @@ def runGame():
         else:
             del wormCoords2[-1]  # remove worm's tail segment
 
+        # Snake collision checks
+        for wormBody1 in wormCoords1[1:]:
+            if wormBody1['x'] == wormCoords2[HEAD2]['x'] and wormBody1['y'] == wormCoords2[HEAD2]['y']:
+                return  # game over
+
+        for wormBody2 in wormCoords2[1:]:
+            if wormBody2['x'] == wormCoords1[HEAD2]['x'] and wormBody2['y'] == wormCoords1[HEAD2]['y']:
+                return  # game over
+
         # move the worm by adding a segment in the direction it is moving
         if not blub2:
             if direction2 == UP:
@@ -166,6 +184,15 @@ def runGame():
         else:
             blub2 = False
 
+        # Snake collision checks
+        for wormBody1 in wormCoords1[1:]:
+            if wormBody1['x'] == wormCoords2[HEAD2]['x'] and wormBody1['y'] == wormCoords2[HEAD2]['y']:
+                return  # game over
+
+        for wormBody2 in wormCoords2[1:]:
+            if wormBody2['x'] == wormCoords1[HEAD2]['x'] and wormBody2['y'] == wormCoords1[HEAD2]['y']:
+                return  # game over
+
         wormCoords1.insert(0, newHead1)
         wormCoords2.insert(0, newHead2)
         DISPLAYSURF.fill(BGCOLOR)
@@ -173,13 +200,14 @@ def runGame():
         drawWorm(wormCoords1)
         drawWorm2(wormCoords2)
         drawApple(apple)
-        drawScore(len(wormCoords1) - 3)
+        drawScore1(len(wormCoords1) - 3)
+        drawScore2(len(wormCoords2) - 3)
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
 
 def drawPressKeyMsg():
-    pressKeySurf = BASICFONT.render('Press a key to play.', True, DARKGRAY)
+    pressKeySurf = BASICFONT.render('Druk op een toets.', True, DARKGRAY)
     pressKeyRect = pressKeySurf.get_rect()
     pressKeyRect.topleft = (WINDOWWIDTH - 200, WINDOWHEIGHT - 30)
     DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
@@ -258,10 +286,17 @@ def showGameOverScreen():
             return
 
 
-def drawScore(score):
+def drawScore1(score):
     scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
     scoreRect = scoreSurf.get_rect()
-    scoreRect.topleft = (WINDOWWIDTH - 120, 10)
+    scoreRect.topleft = (WINDOWWIDTH - 100, 10)
+    DISPLAYSURF.blit(scoreSurf, scoreRect)
+
+
+def drawScore2(score):
+    scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
+    scoreRect = scoreSurf.get_rect()
+    scoreRect.topleft = (WINDOWWIDTH - 100, 30)
     DISPLAYSURF.blit(scoreSurf, scoreRect)
 
 
@@ -287,6 +322,7 @@ def drawWorm2(wormCoords):
         wormInnerSegmentRect = pygame.Rect(x + 4, y + 4, CELLSIZE - 8, CELLSIZE - 8)
         pygame.draw.rect(DISPLAYSURF, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),
                          wormInnerSegmentRect)
+
 
 def drawApple(coord):
     x = coord['x'] * CELLSIZE
