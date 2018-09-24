@@ -199,8 +199,8 @@ def checkForKeyPress():
 
 def showStartScreen():
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
-    titleSurf1 = titleFont.render('Wormy!', True, WHITE, DARKGREEN)
-    titleSurf2 = titleFont.render('Wormy!', True, GREEN)
+    titleSurf1 = titleFont.render('Wormie!', True, WHITE, DARKGREEN)
+    titleSurf2 = titleFont.render('Wormie!', True, GREEN)
 
     degrees1 = 0
     degrees2 = 0
@@ -238,8 +238,8 @@ def getRandomLocation():
 
 def showGameOverScreen():
     gameOverFont = pygame.font.Font('freesansbold.ttf', 150)
-    gameSurf = gameOverFont.render('Game', True, WHITE)
-    overSurf = gameOverFont.render('Over', True, WHITE)
+    gameSurf = gameOverFont.render('Spel', True, WHITE)
+    overSurf = gameOverFont.render('Gedaan', True, WHITE)
     gameRect = gameSurf.get_rect()
     overRect = overSurf.get_rect()
     gameRect.midtop = (WINDOWWIDTH / 2, 10)
